@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import { Button, View, StyleSheet, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { Header } from 'react-native-elements';
+import { Header, Icon } from 'react-native-elements';
 import { SliderBox } from "react-native-image-slider-box";
 
 const styles = StyleSheet.create({
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     },
     tinyLogo: {
 	width: '100%',
-	height: '80%',
+	height: 450,
     },
 });
 
@@ -25,7 +25,8 @@ export default class Catalog extends Component {
 		"https://source.unsplash.com/1024x768/?nature",
 		"https://source.unsplash.com/1024x768/?water",
 		"https://source.unsplash.com/1024x768/?girl",
-		"https://source.unsplash.com/1024x768/?tree"
+		"https://source.unsplash.com/1024x768/?tree",
+		"https://carrycatalog.s3.amazonaws.com/catalogs/5f4cd68e6ff3a6677ce65c9e.jpg"
 	    ]
 	};
     }
@@ -33,6 +34,12 @@ export default class Catalog extends Component {
 	return (
 	    <View style={styles.container}>
 		<Header
+		leftComponent={<Icon
+				   name='chevron-left'
+				   type='font-awesome'
+				   size='24' color='#fff'
+				   onPress={() => this.props.navigation.goBack()}
+		/>}
 		centerComponent={{ text: 'Catalog Details', style: { color: '#fff' } }}
 		containerStyle={{
 		    backgroundColor: '#60b633',
@@ -41,8 +48,6 @@ export default class Catalog extends Component {
 		/>
 		<ScrollView>
 		    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-			<Text>Details Screen</Text>
-			<Button title="Go back" onPress={() => this.props.navigation.goBack()} />
 			<SliderBox
 			    autoplay={false}
 			    images={this.state.images}
