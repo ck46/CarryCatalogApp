@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { View, StyleSheet, Text, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Header } from 'react-native-elements';
 
 const styles = StyleSheet.create({
@@ -13,6 +13,14 @@ const styles = StyleSheet.create({
     tinyLogo: {
 	width: '100%',
 	height: '80%',
+    },
+    settings: {
+	flex: 1,
+	flexDirection: 'row',
+	justifyContent: 'space-around',
+	margin: 10,
+	padding: 5,
+	backgroundColor: 'white'
     },
 });
 
@@ -29,7 +37,31 @@ export default class SettingsScreen extends Component {
 		/>
 		<ScrollView>
 		    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-			<Text>CarryCatalog Settings</Text>
+			<TouchableOpacity>
+			    <View style={styles.settings}>
+				<Text>Notification</Text>
+			    </View>
+			</TouchableOpacity>
+			<TouchableOpacity>
+			    <View style={styles.settings}>
+				<Text>Help</Text>
+			    </View>
+			</TouchableOpacity>
+			<TouchableOpacity>
+			    <View style={styles.settings}>
+				<Text>Tell a Friend</Text>
+			    </View>
+			</TouchableOpacity>
+			<TouchableOpacity>
+			    <View style={styles.settings}>
+				<Text>Terms and Conditions</Text>
+			    </View>
+			</TouchableOpacity>
+			<TouchableOpacity>
+			    <View style={styles.settings}>
+				<Text>Privacy Policy</Text>
+			    </View>
+			</TouchableOpacity>
 		    </View>
 		</ScrollView>
 	    </View>
