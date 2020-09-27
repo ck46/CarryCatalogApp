@@ -37,6 +37,11 @@ export default class CatalogsScreen extends Component {
 		    image: "https://carrycatalog.s3.amazonaws.com/catalogs/5f4cd68e6ff3a6677ce65c9e.jpg",
 		    title: "Third Item",
 		},
+		{
+		    id: 4,
+		    image: "https://carrycatalog.s3.amazonaws.com/catalogs/5f4cd68e6ff3a6677ce65c9e.jpg",
+		    title: "Fourth Item",
+		},
 	    ]
 	};
     }

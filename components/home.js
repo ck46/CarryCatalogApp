@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Button, FlatList, Alert, View, StyleSheet, Text, SafeAreaView, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { ActivityIndicator, Button, FlatList,  View, StyleSheet, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { Header } from 'react-native-elements';
 
 const styles = StyleSheet.create({
@@ -20,7 +20,7 @@ export default class HomeScreen extends Component {
     constructor(props) {
 	super(props);
 	this.state = {
-	    data: [
+	    dummyData: [
 		{
 		    id: 1,
 		    image: "https://carrycatalog.s3.amazonaws.com/catalogs/5f4cd68e6ff3a6677ce65c9e.jpg",
@@ -36,7 +36,9 @@ export default class HomeScreen extends Component {
 		    image: "https://carrycatalog.s3.amazonaws.com/catalogs/5f4cd68e6ff3a6677ce65c9e.jpg",
 		    title: "Third Item",
 		},
-	    ]
+	    ],
+	    isLoading: true,
+	    data: [],
 	};
     }
     _renderItem = ({ item }) => {
@@ -53,6 +55,19 @@ export default class HomeScreen extends Component {
 	    </TouchableOpacity>
 	);
     }
+
+    _fetchCatalogs = () => {
+	fetch('https://reactnative.dev/movies.json')
+	    .then((response) => response.json())
+	    .then((json) => this.setState({data: json.movies}))
+	    .catch((error) => console.error(error))
+	    .finally(() => this.setState({isLoading: false}));
+    }
+
+    componentDidMount() {
+	this._fetchCatalogs();
+    }
+    
     render() {
 	return (
 	    <View style={styles.container}>
@@ -64,14 +79,25 @@ export default class HomeScreen extends Component {
 		    }}
 		/>
 		<ScrollView>
-		    <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
+		    <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>			
 			<FlatList
-			columnWrapperStyle={{ flexWrap: 'wrap', flex: 1, justifyContent: 'space-around', margin: 10 }}
-			data={this.state.data}
-			renderItem={this._renderItem}
-			keyExtrator={(item)  => item.id}
-			numColumns={2}
+			    columnWrapperStyle={{ flexWrap: 'wrap', flex: 1, justifyContent: 'space-around', margin: 10 }}
+			    data={this.state.dummyData}
+			    renderItem={this._renderItem}
+			    keyExtrator={(item)  => item.id}
+			    numColumns={2}
 			/>
+		    </View>
+		    <View style={{ flex: 1, padding: 24 }}>
+			{this.state.isLoading ? <ActivityIndicator/> : (
+			    <FlatList
+			    data={this.state.data}
+			    keyExtractor={({ id }, index) => id}
+			    renderItem={({ item }) => (
+				<Text>{item.title}, {item.releaseYear}</Text>
+			    )}
+			    />
+			)}
 		    </View>
 		</ScrollView>
 	    </View>

@@ -29,6 +29,7 @@ function Home() {
 	    initialRouteName="Main">
             <Stack.Screen name="Main" component={HomeScreen} />
 	    <Stack.Screen name="Catalog" component={Catalog} />
+	    <Stack.Screen name="Store" component={Store} />
 	</Stack.Navigator>
     );
 }
