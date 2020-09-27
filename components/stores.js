@@ -41,7 +41,10 @@ export default class StoresScreen extends Component {
     }
     _renderItem = ({ item }) => {
 	return (
-	    <TouchableOpacity onPress={() => this.props.navigation.navigate('Store', { name: item.title }) }>
+	    <TouchableOpacity onPress={() => this.props.navigation.navigate('Store', {
+		name: item.title,
+		storeId: item.id,
+	    }) }>
 		<View style={{width: 150, height: 200, margin: 10, borderColor: 'gray', borderWidth: 1}}>
 		    <Image
 		    style={styles.tinyLogo}

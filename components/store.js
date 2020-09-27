@@ -80,10 +80,10 @@ export default class Store extends Component {
 	    <View style={styles.container}>
 		<Header
 		    leftComponent={<Icon
-				   name='chevron-left'
-				   type='font-awesome'
-				   size='24' color='#fff'
-				   onPress={() => this.props.navigation.goBack()}
+				       name='chevron-left'
+				       type='font-awesome'
+				       size='24' color='#fff'
+				       onPress={() => this.props.navigation.goBack()}
 		    />}
 		    centerComponent={{ text: 'Store Details', style: { color: '#fff' } }}
 		    containerStyle={{
@@ -93,7 +93,8 @@ export default class Store extends Component {
 		/>
 		<ScrollView>
 		    <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
-			<Text>Store Name</Text>
+			<Text>{JSON.stringify(this.props.route.params)}</Text>
+			<Text>{JSON.stringify(this.props.route.params.storeId)}</Text>
 			<SliderBox
 			autoplay={false}
 			images={this.state.images}
