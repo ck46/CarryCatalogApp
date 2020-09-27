@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import { Button, FlatList, View, StyleSheet, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { Header } from 'react-native-elements';
+import { Header, Icon } from 'react-native-elements';
 import { SliderBox } from "react-native-image-slider-box";
 
 const styles = StyleSheet.create({
@@ -43,6 +43,21 @@ export default class Store extends Component {
 		    image: "https://carrycatalog.s3.amazonaws.com/catalogs/5f4cd68e6ff3a6677ce65c9e.jpg",
 		    title: "Third Item",
 		},
+		{
+		    id: 4,
+		    image: "https://carrycatalog.s3.amazonaws.com/catalogs/5f4cd68e6ff3a6677ce65c9e.jpg",
+		    title: "First Item",
+		},
+		{
+		    id: 5,
+		    image: "https://carrycatalog.s3.amazonaws.com/catalogs/5f4cd68e6ff3a6677ce65c9e.jpg",
+		    title: "Second Item",
+		},
+		{
+		    id: 6,
+		    image: "https://carrycatalog.s3.amazonaws.com/catalogs/5f4cd68e6ff3a6677ce65c9e.jpg",
+		    title: "Third Item",
+		},
 	    ]
 	};
     }
@@ -64,6 +79,12 @@ export default class Store extends Component {
 	return (
 	    <View style={styles.container}>
 		<Header
+		    leftComponent={<Icon
+				   name='chevron-left'
+				   type='font-awesome'
+				   size='24' color='#fff'
+				   onPress={() => this.props.navigation.goBack()}
+		    />}
 		    centerComponent={{ text: 'Store Details', style: { color: '#fff' } }}
 		    containerStyle={{
 			backgroundColor: '#60b633',
@@ -72,8 +93,7 @@ export default class Store extends Component {
 		/>
 		<ScrollView>
 		    <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
-			<Text>Details Screen</Text>
-			<Button title="Go back" onPress={() => this.props.navigation.goBack()} />
+			<Text>Store Name</Text>
 			<SliderBox
 			autoplay={false}
 			images={this.state.images}
