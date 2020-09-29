@@ -1,12 +1,20 @@
 {
-  "name": "CarryCatalog",
-  "displayName": "CarryCatalog",
-  "expo": {
     "name": "CarryCatalog",
-    "slug": "CarryCatalog",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "displayName": "CarryCatalog",
+    "expo": {
+	"name": "CarryCatalog",
+	"slug": "CarryCatalog",
+	"version": "1.0.0",
+	"assetBundlePatterns": [
+	    "**/*"
+	],
+	"ios": {
+	    "bundleIdentifier": "com.carrrycatalog.CarryCatalog",
+	    "buildNumber": "1.0.0"
+	},
+	"android": {
+	    "package": "com.carrycatalog.CarryCatalog",
+	    "versionCode": 1
+	}
   }
 }
