@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Button, FlatList, View, StyleSheet, Text, SafeAreaView, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { ActivityIndicator, Button, FlatList, View, StyleSheet, Text, SafeAreaView, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { Header } from 'react-native-elements';
 
 const styles = StyleSheet.create({
@@ -20,42 +20,42 @@ export default class StoresScreen extends Component {
     constructor(props) {
 	super(props);
 	this.state = {
-	    data: [
-		{
-		    id: 1,
-		    image: "https://carrycatalog.s3.amazonaws.com/catalogs/5f4cd68e6ff3a6677ce65c9e.jpg",
-		    title: "First Item",
-		},
-		{
-		    id: 2,
-		    image: "https://carrycatalog.s3.amazonaws.com/catalogs/5f4cd68e6ff3a6677ce65c9e.jpg",
-		    title: "Second Item",
-		},
-		{
-		    id: 3,
-		    image: "https://carrycatalog.s3.amazonaws.com/catalogs/5f4cd68e6ff3a6677ce65c9e.jpg",
-		    title: "Third Item",
-		},
-	    ]
+	    isLoading: true,
+	    data: [],
 	};
     }
     _renderItem = ({ item }) => {
 	return (
 	    <TouchableOpacity onPress={() => this.props.navigation.navigate('Store', {
-		name: item.title,
-		storeId: item.id,
+		name: item.Name,
+		storeId: item.ID,
 	    }) }>
 		<View style={{width: 150, height: 200, margin: 10, borderColor: 'gray', borderWidth: 1}}>
 		    <Image
 		    style={styles.tinyLogo}
-		    source={{uri: item.image}}
+		    source={{uri: item.Image}}
 		    />
-		    <Text>{ item.title }</Text>
-		    <Text>Valid until</Text>
+		    <Text style={{textAlign: 'center'}}>{ item.Name }</Text>
 		</View>
 	    </TouchableOpacity>
 	);
     }
+
+    _fetchStores = () => {
+	fetch('https://cors-anywhere.herokuapp.com/'+'https://carrycatalog.com/api/get/stores')
+	    .then((response) => response.json())
+	    .then((json) => {
+		this.setState({data: json})
+		console.log(json)
+	    })
+	    .catch((error) => console.error(error))
+	    .finally(() => this.setState({isLoading: false}));
+    }
+
+    componentDidMount() {
+	this._fetchStores();
+    }
+
     render() {
 	return (
 	    <View style={styles.container}>
@@ -68,16 +68,18 @@ export default class StoresScreen extends Component {
 		/>
 		<ScrollView>
 		    <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
-			<FlatList
-			columnWrapperStyle={{ flexWrap: 'wrap', flex: 1, justifyContent: 'space-around', margin: 10 }}
-			data={this.state.data}
-			renderItem={this._renderItem}
-			keyExtrator={(item)  => item.id}
-			numColumns={2}
-			/>
+			{this.state.isLoading ? <ActivityIndicator/> : (
+			    <FlatList
+			    columnWrapperStyle={{ flexWrap: 'wrap', flex: 1, justifyContent: 'space-around', margin: 10 }}
+			    data={this.state.data}
+			    renderItem={this._renderItem}
+			    keyExtrator={(item)  => item.ID}
+			    numColumns={2}
+			    />
+			)}
 		    </View>
 		</ScrollView>
 	    </View>
-	);
+			);
     }
 }

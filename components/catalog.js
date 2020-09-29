@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Button, View, StyleSheet, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { ActivityIndicator, Button, View, StyleSheet, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { Header, Icon } from 'react-native-elements';
 import { SliderBox } from "react-native-image-slider-box";
 
@@ -21,15 +21,25 @@ export default class Catalog extends Component {
     constructor(props) {
 	super(props);
 	this.state = {
-	    images: [
-		"https://source.unsplash.com/1024x768/?nature",
-		"https://source.unsplash.com/1024x768/?water",
-		"https://source.unsplash.com/1024x768/?girl",
-		"https://source.unsplash.com/1024x768/?tree",
-		"https://carrycatalog.s3.amazonaws.com/catalogs/5f4cd68e6ff3a6677ce65c9e.jpg"
-	    ]
+	    isLoading: true,
+	    images: [],
 	};
     }
+
+    _fetchCatalog = (id) => {
+	fetch('https://cors-anywhere.herokuapp.com/'+'https://carrycatalog.com/api/get/catalog?id='+id)
+	    .then((response) => response.json())
+	    .then((json) => {
+		this.setState({images: json.Images});
+	    })
+	    .catch((error) => console.error(error))
+	    .finally(() => this.setState({isLoading: false}));
+    }
+
+    componentDidMount() {
+	this._fetchCatalog(JSON.stringify(this.props.route.params.id));
+    }
+
     render(){
 	return (
 	    <View style={styles.container}>
@@ -46,16 +56,18 @@ export default class Catalog extends Component {
 		    justifyContent: 'space-around',
 		}}
 		/>
-		<ScrollView>
-		    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+		<Text style={{fontSize: 18, textAlign: 'center'}}>{this.props.route.params.name}</Text>
+		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+		    {this.state.isLoading ? <ActivityIndicator/> : (
 			<SliderBox
-			    autoplay={false}
-			    images={this.state.images}
-			    onCurrentImagePressed={index => console.warn(`image ${index} pressed`)}
-			    currentImageEmitter={index => console.warn(`current pos is: ${index}`)}
+			autoplay={false}
+			images={this.state.images}
+			onCurrentImagePressed={index => console.warn(`image ${index} pressed`)}
+			currentImageEmitter={index => console.warn(`current pos is: ${index}`)}
+			sliderBoxHeight={470}
 			/>
-		    </View>
-		</ScrollView>
+		    )}
+		</View>
 	    </View>
 	);
     }

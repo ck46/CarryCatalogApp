@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     },
     tinyLogo: {
 	width: '100%',
-	height: '80%',
+	height: '70%',
     },
 });
 
@@ -20,46 +20,32 @@ export default class HomeScreen extends Component {
     constructor(props) {
 	super(props);
 	this.state = {
-	    dummyData: [
-		{
-		    id: 1,
-		    image: "https://carrycatalog.s3.amazonaws.com/catalogs/5f4cd68e6ff3a6677ce65c9e.jpg",
-		    title: "First Item",
-		},
-		{
-		    id: 2,
-		    image: "https://carrycatalog.s3.amazonaws.com/catalogs/5f4cd68e6ff3a6677ce65c9e.jpg",
-		    title: "Second Item",
-		},
-		{
-		    id: 3,
-		    image: "https://carrycatalog.s3.amazonaws.com/catalogs/5f4cd68e6ff3a6677ce65c9e.jpg",
-		    title: "Third Item",
-		},
-	    ],
 	    isLoading: true,
 	    data: [],
 	};
     }
     _renderItem = ({ item }) => {
 	return (
-	    <TouchableOpacity onPress={() => this.props.navigation.navigate('Catalog', { name: item.title }) }>
-		<View style={{width: 150, height: 200, margin: 10, borderColor: 'gray', borderWidth: 1}}>
+	    <TouchableOpacity onPress={() => this.props.navigation.navigate('Catalog', { id: item.ID, name: item.Title }) }>
+		<View style={{width: 150, minHeight: 200, margin: 10, borderColor: 'gray', borderWidth: 1}}>
 		    <Image
-		    style={styles.tinyLogo}
-		    source={{uri: item.image}}
+			style={styles.tinyLogo}
+			source={{uri: item.PromoImage}}
 		    />
-		    <Text>{ item.title }</Text>
-		    <Text>Valid until</Text>
+		    <Text style={{fontSize:11}}>{ item.Title }</Text>
+		    <Text style={{fontSize:11}}>Valid until: {item.Date}</Text>
 		</View>
 	    </TouchableOpacity>
 	);
     }
 
     _fetchCatalogs = () => {
-	fetch('https://reactnative.dev/movies.json')
+	fetch('https://cors-anywhere.herokuapp.com/'+'https://carrycatalog.com/api/get/catalogs')
 	    .then((response) => response.json())
-	    .then((json) => this.setState({data: json.movies}))
+	    .then((json) => {
+		this.setState({data: json})
+		console.log(json)
+	    })
 	    .catch((error) => console.error(error))
 	    .finally(() => this.setState({isLoading: false}));
     }
@@ -79,23 +65,15 @@ export default class HomeScreen extends Component {
 		    }}
 		/>
 		<ScrollView>
-		    <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>			
-			<FlatList
-			    columnWrapperStyle={{ flexWrap: 'wrap', flex: 1, justifyContent: 'space-around', margin: 10 }}
-			    data={this.state.dummyData}
-			    renderItem={this._renderItem}
-			    keyExtrator={(item)  => item.id}
-			    numColumns={2}
-			/>
-		    </View>
+		    
 		    <View style={{ flex: 1, padding: 24 }}>
 			{this.state.isLoading ? <ActivityIndicator/> : (
 			    <FlatList
+			    columnWrapperStyle={{ flexWrap: 'wrap', flex: 1, justifyContent: 'space-around', margin: 10 }}
 			    data={this.state.data}
-			    keyExtractor={({ id }, index) => id}
-			    renderItem={({ item }) => (
-				<Text>{item.title}, {item.releaseYear}</Text>
-			    )}
+			    renderItem={this._renderItem}
+			    keyExtractor={(item) => item.ID}
+			    numColumns={2}
 			    />
 			)}
 		    </View>
