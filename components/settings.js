@@ -39,7 +39,12 @@ export default class SettingsScreen extends Component {
 		    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 			<TouchableOpacity>
 			    <View style={styles.settings}>
-				<Text>Notification</Text>
+				<Text>Login</Text>
+			    </View>
+			</TouchableOpacity>
+			<TouchableOpacity>
+			    <View style={styles.settings}>
+				<Text>Signup</Text>
 			    </View>
 			</TouchableOpacity>
 			<TouchableOpacity>
@@ -50,16 +55,6 @@ export default class SettingsScreen extends Component {
 			<TouchableOpacity>
 			    <View style={styles.settings}>
 				<Text>Tell a Friend</Text>
-			    </View>
-			</TouchableOpacity>
-			<TouchableOpacity>
-			    <View style={styles.settings}>
-				<Text>Terms and Conditions</Text>
-			    </View>
-			</TouchableOpacity>
-			<TouchableOpacity>
-			    <View style={styles.settings}>
-				<Text>Privacy Policy</Text>
 			    </View>
 			</TouchableOpacity>
 		    </View>

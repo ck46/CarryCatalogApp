@@ -20,8 +20,8 @@ export default class HomeScreen extends Component {
     constructor(props) {
 	super(props);
 	this.state = {
-	    isLoading: true,
-	    data: [],
+	    catalogsLoading: true,
+	    catalogs: [],
 	};
     }
     _renderItem = ({ item }) => {
@@ -29,8 +29,8 @@ export default class HomeScreen extends Component {
 	    <TouchableOpacity onPress={() => this.props.navigation.navigate('Catalog', { id: item.ID, name: item.Title }) }>
 		<View style={{width: 150, minHeight: 200, margin: 10, borderColor: 'gray', borderWidth: 1}}>
 		    <Image
-			style={styles.tinyLogo}
-			source={{uri: item.PromoImage}}
+		    style={styles.tinyLogo}
+		    source={{uri: item.PromoImage}}
 		    />
 		    <Text style={{fontSize:11}}>{ item.Title }</Text>
 		    <Text style={{fontSize:11}}>Valid until: {item.Date}</Text>
@@ -38,16 +38,15 @@ export default class HomeScreen extends Component {
 	    </TouchableOpacity>
 	);
     }
-
     _fetchCatalogs = () => {
 	fetch('https://cors-anywhere.herokuapp.com/'+'https://carrycatalog.com/api/get/catalogs')
 	    .then((response) => response.json())
 	    .then((json) => {
-		this.setState({data: json})
+		this.setState({catalogs: json})
 		console.log(json)
 	    })
 	    .catch((error) => console.error(error))
-	    .finally(() => this.setState({isLoading: false}));
+	    .finally(() => this.setState({catalogsLoading: false}));
     }
 
     componentDidMount() {
@@ -65,12 +64,11 @@ export default class HomeScreen extends Component {
 		    }}
 		/>
 		<ScrollView>
-		    
-		    <View style={{ flex: 1, padding: 24 }}>
-			{this.state.isLoading ? <ActivityIndicator/> : (
+		    <View style={{ flex: 1, padding: 10 }}>
+			{this.state.catalogsLoading ? <ActivityIndicator/> : (
 			    <FlatList
 			    columnWrapperStyle={{ flexWrap: 'wrap', flex: 1, justifyContent: 'space-around', margin: 10 }}
-			    data={this.state.data}
+			    data={this.state.catalogs}
 			    renderItem={this._renderItem}
 			    keyExtractor={(item) => item.ID}
 			    numColumns={2}
