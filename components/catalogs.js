@@ -15,6 +15,10 @@ const styles = StyleSheet.create({
 	width: '100%',
 	height: '70%',
     },
+    logo: {
+	height: 50,
+	width: 200,
+    },
 });
 
 export default class CatalogsScreen extends Component {
@@ -60,7 +64,10 @@ export default class CatalogsScreen extends Component {
 	return (
 	    <View style={styles.container}>
 		<Header
-		centerComponent={{ text: 'CATALOGS', style: { color: '#fff' } }}
+		centerComponent={<Image
+				     style={styles.logo}
+				     source={require('./images/carrycatalog.png')}
+		/>}
 		containerStyle={{
 		    backgroundColor: '#60b633',
 		    justifyContent: 'space-around',
@@ -80,7 +87,7 @@ export default class CatalogsScreen extends Component {
 		    </View>
 		</ScrollView>
 	    </View>
-			);
+	);
     }
 }
 

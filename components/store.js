@@ -15,6 +15,10 @@ const styles = StyleSheet.create({
 	width: '100%',
 	height: '80%',
     },
+    logo: {
+	height: 50,
+	width: 200,
+    },
 });
 
 export default class Store extends Component {
@@ -66,7 +70,10 @@ export default class Store extends Component {
 				   size='24' color='#fff'
 				   onPress={() => this.props.navigation.goBack()}
 		/>}
-		centerComponent={{ text: 'Store Details', style: { color: '#fff' } }}
+		centerComponent={<Image
+				     style={styles.logo}
+				     source={require('./images/carrycatalog.png')}
+		/>}
 		containerStyle={{
 		    backgroundColor: '#60b633',
 		    justifyContent: 'space-around',

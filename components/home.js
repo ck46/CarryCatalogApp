@@ -14,6 +14,10 @@ const styles = StyleSheet.create({
 	width: '100%',
 	height: '70%',
     },
+    logo: {
+	height: 50,
+	width: 200,
+    },
 });
 
 export default class HomeScreen extends Component {
@@ -57,7 +61,10 @@ export default class HomeScreen extends Component {
 	return (
 	    <View style={styles.container}>
 		<Header
-		    centerComponent={{ text: 'CarryCatalog', style: { color: '#fff' } }}
+		    centerComponent={<Image
+					 style={styles.logo}
+					 source={require('./images/carrycatalog.png')}
+		    />}
 		    containerStyle={{
 			backgroundColor: '#60b633',
 			justifyContent: 'space-around',

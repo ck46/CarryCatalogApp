@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { View, StyleSheet, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Image, StyleSheet, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Header } from 'react-native-elements';
 
 const styles = StyleSheet.create({
@@ -22,6 +22,10 @@ const styles = StyleSheet.create({
 	padding: 5,
 	backgroundColor: 'white'
     },
+    logo: {
+	height: 50,
+	width: 200,
+    },
 });
 
 export default class SettingsScreen extends Component {
@@ -29,7 +33,10 @@ export default class SettingsScreen extends Component {
 	return (
 	    <View style={styles.container}>
 		<Header
-		    centerComponent={{ text: 'SETTINGS', style: { color: '#fff' } }}
+		    centerComponent={<Image
+			style={styles.logo}
+			source={require('./images/carrycatalog.png')}
+			/>}
 		    containerStyle={{
 			backgroundColor: '#60b633',
 			justifyContent: 'space-around',
