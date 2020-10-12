@@ -15,6 +15,9 @@ import Store from './components/store';
 import StoresScreen from './components/stores';
 import HomeScreen from './components/home';
 import SettingsScreen from './components/settings';
+import AboutScreen from './components/about';
+import TermsScreen from './components/terms';
+import HelpScreen from './components/help'
 
 
 const Stack = createStackNavigator();
@@ -61,6 +64,21 @@ function Stores() {
     );
 }
 
+function Settings() {
+    return (
+	<Stack.Navigator
+	    screenOptions={{
+		headerShown: false
+	    }}
+	    initialRouteName="AllSettins">
+            <Stack.Screen name="AllSettings" component={SettingsScreen} />
+            <Stack.Screen name="About" component={AboutScreen} />
+	    <Stack.Screen name="Terms" component={TermsScreen} />
+	    <Stack.Screen name="Help" component={HelpScreen} />
+	</Stack.Navigator>
+    );
+}
+
 export default function App() {
     return (
 	<NavigationContainer>
@@ -79,7 +97,7 @@ export default function App() {
 				    color={color}
 				/>
 			    );
-			} else if (route.name === 'Catalogs') {
+			} /* else if (route.name === 'Catalogs') {
 			    return (
 				<Ionicons
 				    name={focused ? 'ios-book' : 'ios-book'}
@@ -87,7 +105,7 @@ export default function App() {
 				    color={color}
 				/>
 			    );
-			} else if (route.name === 'Stores') {
+			}*/ else if (route.name === 'Stores') {
 			    return (
 				<Ionicons
 				    name={focused ? 'md-business' : 'md-business'}
@@ -112,9 +130,8 @@ export default function App() {
 		}}
 	    >
 		<Tab.Screen name="Home" component={Home} />
-		<Tab.Screen name="Catalogs" component={Catalogs} />
 		<Tab.Screen name="Stores" component={Stores} />
-		<Tab.Screen name="Settings" component={SettingsScreen} />
+		<Tab.Screen name="Settings" component={Settings} />
 	    </Tab.Navigator>
 	</NavigationContainer>
     );

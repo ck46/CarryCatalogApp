@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { View, Image, StyleSheet, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Image, StyleSheet, Text, ScrollView, TouchableOpacity, Linking } from 'react-native';
 import { Header } from 'react-native-elements';
 
 const styles = StyleSheet.create({
@@ -16,11 +16,16 @@ const styles = StyleSheet.create({
     },
     settings: {
 	flex: 1,
+	width: '100%',
+	height: 64,
 	flexDirection: 'row',
-	justifyContent: 'space-around',
-	margin: 10,
+	marginTop: 10,
 	padding: 5,
-	backgroundColor: 'white'
+	backgroundColor: 'white',
+	justifyContent: 'space-around',
+    },
+    settingsText: {
+	fontSize: 20,
     },
     logo: {
 	height: 50,
@@ -34,34 +39,34 @@ export default class SettingsScreen extends Component {
 	    <View style={styles.container}>
 		<Header
 		    centerComponent={<Image
-			style={styles.logo}
-			source={require('./images/carrycatalog.png')}
-			/>}
+					 style={styles.logo}
+					 source={require('./images/carrycatalog.png')}
+		    />}
 		    containerStyle={{
 			backgroundColor: '#60b633',
 			justifyContent: 'space-around',
 		    }}
 		/>
 		<ScrollView>
-		    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-			<TouchableOpacity>
+		    <View style={{ flex: 1, margin: 20}}>
+			<TouchableOpacity onPress={() => this.props.navigation.navigate('About')}>
 			    <View style={styles.settings}>
-				<Text>Login</Text>
+				<Text style={styles.settingsText}>About</Text>
 			    </View>
 			</TouchableOpacity>
-			<TouchableOpacity>
+			<TouchableOpacity onPress={() => Linking.openURL('https://carrycatalog.com/faqs')}>
 			    <View style={styles.settings}>
-				<Text>Signup</Text>
+				<Text style={styles.settingsText}>FAQs</Text>
 			    </View>
 			</TouchableOpacity>
-			<TouchableOpacity>
+			<TouchableOpacity onPress={() => Linking.openURL('https://carrycatalog.com/terms')}>
 			    <View style={styles.settings}>
-				<Text>Help</Text>
+				<Text style={styles.settingsText}>Terms</Text>
 			    </View>
 			</TouchableOpacity>
-			<TouchableOpacity>
+			<TouchableOpacity onPress={() => Linking.openURL('https://carrycatalog.com/terms')}>
 			    <View style={styles.settings}>
-				<Text>Tell a Friend</Text>
+				<Text style={styles.settingsText}>Privacy</Text>
 			    </View>
 			</TouchableOpacity>
 		    </View>
