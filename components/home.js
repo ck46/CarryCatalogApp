@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     },
     tinyLogo: {
 	width: '100%',
-	height: '80%',
+	height: '75%',
     },
     logo: {
 	height: 50,

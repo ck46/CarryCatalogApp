@@ -69,8 +69,6 @@ export default class Catalog extends Component {
 			<SliderBox
 			autoplay={false}
 			images={this.state.images}
-			onCurrentImagePressed={index => console.warn(`image ${index} pressed`)}
-			currentImageEmitter={index => console.warn(`current pos is: ${index}`)}
 			sliderBoxHeight={470}
 			/>
 		    )}
