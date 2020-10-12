@@ -31,10 +31,10 @@ export default class Catalog extends Component {
     }
 
     _fetchCatalog = (id) => {
-	fetch('https://cors-anywhere.herokuapp.com/'+'https://carrycatalog.com/api/get/catalog?id='+id)
+	fetch('https://carrycatalog.com/api/get/catalog?id='+id)
 	    .then((response) => response.json())
 	    .then((json) => {
-		this.setState({images: json.Images});
+		this.setState({images: json.Result.Images});
 	    })
 	    .catch((error) => console.error(error))
 	    .finally(() => this.setState({isLoading: false}));
@@ -63,7 +63,7 @@ export default class Catalog extends Component {
 		    justifyContent: 'space-around',
 		}}
 		/>
-		<Text style={{fontSize: 18, textAlign: 'center'}}>{this.props.route.params.name}</Text>
+		<Text style={{fontSize: 24, textAlign: 'center', fontWeight: 'bold'}}>{this.props.route.params.name}</Text>
 		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 		    {this.state.isLoading ? <ActivityIndicator/> : (
 			<SliderBox

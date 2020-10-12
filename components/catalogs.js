@@ -46,10 +46,10 @@ export default class CatalogsScreen extends Component {
     }
 
     _fetchCatalogs = () => {
-	fetch('https://cors-anywhere.herokuapp.com/'+'https://carrycatalog.com/api/get/catalogs')
+	fetch('https://carrycatalog.com/api/get/catalogs')
 	    .then((response) => response.json())
 	    .then((json) => {
-		this.setState({data: json})
+		this.setState({data: json.Result})
 		console.log(json)
 	    })
 	    .catch((error) => console.error(error))
@@ -73,8 +73,7 @@ export default class CatalogsScreen extends Component {
 		    justifyContent: 'space-around',
 		}}
 		/>
-		<ScrollView>
-		    <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
+		<SafeAreaView style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
 			{this.state.isLoading ? <ActivityIndicator/> : (
 			    <FlatList
 				columnWrapperStyle={{ flexWrap: 'wrap', flex: 1, justifyContent: 'space-around', margin: 10 }}
@@ -84,8 +83,7 @@ export default class CatalogsScreen extends Component {
 				numColumns={2}
 			    />
 			)}
-		    </View>
-		</ScrollView>
+		</SafeAreaView>
 	    </View>
 	);
     }

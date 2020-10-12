@@ -34,23 +34,23 @@ export default class StoresScreen extends Component {
 		name: item.Name,
 		storeId: item.ID,
 	    }) }>
-		<View style={{width: 150, height: 200, margin: 10, borderColor: 'gray', borderWidth: 1}}>
+		<View style={{width: 150, height: 180, margin: 10, borderColor: 'gray', borderWidth: 1}}>
 		    <Image
 		    style={styles.tinyLogo}
 		    source={{uri: item.Image}}
 		    />
-		    <Text style={{textAlign: 'center'}}>{ item.Name }</Text>
+		    <Text style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold'}}>{ item.Name }</Text>
 		</View>
 	    </TouchableOpacity>
 	);
     }
 
     _fetchStores = () => {
-	fetch('https://cors-anywhere.herokuapp.com/'+'https://carrycatalog.com/api/get/stores')
+	fetch('https://carrycatalog.com/api/get/stores')
 	    .then((response) => response.json())
 	    .then((json) => {
-		this.setState({data: json})
-		console.log(json)
+		this.setState({data: json.Result})
+		// console.log(json)
 	    })
 	    .catch((error) => console.error(error))
 	    .finally(() => this.setState({isLoading: false}));
@@ -74,17 +74,17 @@ export default class StoresScreen extends Component {
 		    }}
 		/>
 		<ScrollView>
-		    <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
-			{this.state.isLoading ? <ActivityIndicator/> : (
-			    <FlatList
+		<SafeAreaView style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
+		    {this.state.isLoading ? <ActivityIndicator/> : (
+			<FlatList
 			    columnWrapperStyle={{ flexWrap: 'wrap', flex: 1, justifyContent: 'space-around', margin: 10 }}
 			    data={this.state.data}
 			    renderItem={this._renderItem}
 			    keyExtrator={(item)  => item.ID}
 			    numColumns={2}
-			    />
-			)}
-		    </View>
+			/>
+		    )}
+		</SafeAreaView>
 		</ScrollView>
 	    </View>
 	);

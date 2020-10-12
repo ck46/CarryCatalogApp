@@ -33,24 +33,24 @@ export default class Store extends Component {
     _renderItem = ({ item }) => {
 	return (
 	    <TouchableOpacity onPress={() => this.props.navigation.navigate('Catalog', { id: item.ID, name: item.Title }) }>
-		<View style={{width: 150, minHeight: 200, margin: 10, borderColor: 'gray', borderWidth: 1}}>
+		<View style={{width: 150, minHeight: 180, margin: 10, borderColor: 'gray', borderWidth: 1}}>
 		    <Image
 		    style={styles.tinyLogo}
 		    source={{uri: item.PromoImage}}
 		    />
-		    <Text style={{fontSize:11}}>{ item.Title }</Text>
-		    <Text style={{fontSize:11}}>Valid until: {item.Date}</Text>
+		    <Text style={{fontSize:13, textAlign: 'center', fontWeight: 'bold'}}>{ item.Title }</Text>
+		    <Text style={{fontSize:11, textAlign: 'center', color: 'red'}}>Valid until: {item.Date}</Text>
 		</View>
 	    </TouchableOpacity>
 	);
     }
 
     _fetchStore = (id) => {
-	fetch('https://cors-anywhere.herokuapp.com/'+'https://carrycatalog.com/api/get/store?id='+id)
+	fetch('https://carrycatalog.com/api/get/store?id='+id)
 	    .then((response) => response.json())
 	    .then((json) => {
-		this.setState({imageUrl: json.Image});
-		this.setState({catalogs: json.Catalogs});
+		this.setState({imageUrl: json.Result.Image});
+		this.setState({catalogs: json.Result.Catalogs});
 	    })
 	    .catch((error) => console.error(error))
 	    .finally(() => this.setState({isLoading: false}));
